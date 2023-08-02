@@ -1,7 +1,7 @@
 import CurrencyInput from 'react-currency-input-field';
 import { PlusIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useChart } from "../contexts/ChartContext";
-import { useEffect, useMemo, useState } from "react";
+import { FormEvent, useEffect, useMemo, useState } from "react";
 import { transformMoney } from "../commons/utils";
 interface IAddItem {
   setIsAddItemActive: (state: boolean) => void
@@ -14,14 +14,14 @@ interface IAddItem {
 export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false }: IAddItem) {
   const [name, setName] = useState('')
   const [brand, setBrand] = useState('')
-  const [quantity, setQuantity] = useState(0)
-  const [value, setValue] = useState('0')
+  const [quantity, setQuantity] = useState(1)
+  const [value, setValue] = useState<string | number>('0')
   const formatedValue = useMemo(() => {
     return Number(value?.toString().replaceAll(',', '.'))
   }, [value])
   const { addItem, removeItem, getItem, modifyItem } = useChart()
 
-  function handleSubmit(e: SubmitEvent) {
+  function handleSubmit(e: FormEvent) {
     e.preventDefault()
     if (isEditing && itemId) {
       modifyItem({
@@ -149,8 +149,8 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
                 placeholder="Please enter a number"
                 defaultValue={value}
                 decimalsLimit={2}
-
-                onValueChange={(value) => setValue(value)}
+                value={value}
+                onValueChange={(value) => setValue(value || 0)}
                 intlConfig={{
                   locale: 'pt-BR',
                   currency: 'BRL'

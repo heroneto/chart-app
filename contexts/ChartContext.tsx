@@ -66,7 +66,7 @@ export const ChartContextProvider = ({ children }: IChartContextProvider) => {
     saveItems(newItems)
   }
   function getItem(itemId: string) {
-    return items.find(item => item.id === itemId)
+    return items.find(item => item.id === itemId) as Item
   }
 
   return (

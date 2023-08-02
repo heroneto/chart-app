@@ -29,7 +29,7 @@ export function ListResume({ setIsAddItemActive }: IListResume) {
           Total de itens
         </span>
         <span>
-          {totalItems}
+          {totalItems} unid / {items.length} items
         </span>
       </div>
       <div>
