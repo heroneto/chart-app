@@ -17,6 +17,7 @@ export function ConfirmDeleteAll({
   const [isOpen, setIsOpen] = useState(false)
   const { deleteAll } = useChart()
   const ref = useRef<HTMLDialogElement>(null)
+
   function openDialog() {
     ref.current?.showModal()
     setIsOpen(true)

@@ -34,8 +34,8 @@ export function ChartItem({
   }
 
   return (
-    <div id='chart_item' className='bg-white mt-4 w-auto p-4 rounded-md flex h-28 w-60 cursor-pointer' >
-      <input onChange={(e) => toggleChecked(e.target.checked)} checked={checked} type='checkbox' className="w-8 rounded border-gray-300 r" />
+    <div id='chart_item' className='bg-white mt-4 w-auto p-4 rounded-md flex h-28 w-60 cursor-pointer items-center' >
+      <input onChange={(e) => toggleChecked(e.target.checked)} checked={checked} type='checkbox' className="w-8 h-8 rounded border-gray-300 r" />
       <div onClick={onClick} className="flex w-full ml-4">
 
         <div className='h-full flex justify-center items-center'>
