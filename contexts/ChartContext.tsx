@@ -15,6 +15,7 @@ interface ChartContextProps {
   removeItem(itemId: string): void
   modifyItem(item: Item): void
   getItem(itemId: string): Item
+  deleteAll(): void
 }
 
 const ChartContext = createContext<ChartContextProps>(null!)
@@ -69,13 +70,19 @@ export const ChartContextProvider = ({ children }: IChartContextProvider) => {
     return items.find(item => item.id === itemId) as Item
   }
 
+  function deleteAll() {
+    setItems([])
+    saveItems([])
+  }
+
   return (
     <ChartContext.Provider value={{
       items,
       addItem,
       removeItem,
       modifyItem,
-      getItem
+      getItem,
+      deleteAll
     }}>
       {children}
     </ChartContext.Provider>

@@ -5,7 +5,7 @@ import { useState } from 'react'
 import { AddItem } from '../components/AddItem'
 import { useChart } from '../contexts/ChartContext'
 export default function Home() {
-  const { items } = useChart()
+  const { items, deleteAll } = useChart()
   const [isAddItemActive, setIsAddItemActive] = useState(false)
   const [selectedItem, setSelectedItem] = useState<string>()
 
@@ -27,7 +27,7 @@ export default function Home() {
         <input disabled className="w-72 bg-blue-950 p-3 rounder text-white" placeholder='Insira o nome do item' />
       </div>
         <div className='ml-8'>
-          <button type='button' name='clear_chart_itens' id='clear_chart_itens'>
+          <button onClick={deleteAll} type='button' name='clear_chart_itens' id='clear_chart_itens'>
             <TrashIcon className='h-6 w-6 text-white' />
           </button>
         </div>
