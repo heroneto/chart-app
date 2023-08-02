@@ -12,16 +12,20 @@ export function ListResume({ setIsAddItemActive }: IListResume) {
 
   const sumValues = useMemo(() => {
     const total = items.reduce((acc: number, cur) => {
-      return acc + (cur.value * cur.quantity)
+      return cur.inChart ? acc + (cur.value * cur.quantity) : acc
     }, 0)
     return transformMoney(total)
   }, [items])
 
-  const totalItems = useMemo(() => {
+  const totalUnid = useMemo(() => {
     return items.reduce((acc: number, cur) => {
-      return acc + cur.quantity
+      return cur.inChart ? acc + cur.quantity : acc
     }, 0)
-  }, [])
+  }, [items])
+
+  const totalItems = useMemo(() => {
+    return items.filter(item => item.inChart).length
+  }, [items])
   return (
     <div className='flex justify-evenly fixed bottom-0 left-0 h-20 w-full bg-white drop-shadow'>
       <div className='flex flex-col h-full justify-center'>
@@ -29,7 +33,7 @@ export function ListResume({ setIsAddItemActive }: IListResume) {
           Total de itens
         </span>
         <span>
-          {totalItems} unid / {items.length} items
+          {totalUnid} unid / {totalItems} items
         </span>
       </div>
       <div>

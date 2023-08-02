@@ -6,7 +6,8 @@ type Item = {
   name: string,
   brand: string,
   quantity: number,
-  value: number
+  value: number,
+  inChart: boolean
 }
 
 interface ChartContextProps {

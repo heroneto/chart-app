@@ -16,6 +16,7 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
   const [brand, setBrand] = useState('')
   const [quantity, setQuantity] = useState(1)
   const [value, setValue] = useState<string | number>('0')
+  const [inChart, setInChart] = useState(false)
   const formatedValue = useMemo(() => {
     return Number(value?.toString().replaceAll(',', '.'))
   }, [value])
@@ -29,7 +30,8 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
         name,
         quantity,
         value: formatedValue,
-        id: itemId
+        id: itemId,
+        inChart: false,
       })
     } else {
 
@@ -37,7 +39,9 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
         brand,
         name,
         quantity,
-        value: formatedValue
+        value: formatedValue,
+        inChart: inChart
+
       })
     }
     setIsAddItemActive(false)
@@ -58,6 +62,8 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
     setBrand(itemFromState.brand)
     setQuantity(itemFromState.quantity)
     setValue(itemFromState.value)
+    setValue(itemFromState.value)
+    setInChart(itemFromState.inChart)
   }
 
   useEffect(() => {
