@@ -1,8 +1,8 @@
-import CurrencyInput from 'react-currency-input-field';
 import { PlusIcon, XMarkIcon, TrashIcon } from "@heroicons/react/24/solid";
 import { useChart } from "../contexts/ChartContext";
 import { FormEvent, useEffect, useMemo, useState } from "react";
 import { transformMoney } from "../commons/utils";
+import { CurrencyInput } from "./CurrencyInput";
 interface IAddItem {
   setIsAddItemActive: (state: boolean) => void
   itemId?: string
@@ -15,7 +15,7 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
   const [name, setName] = useState('')
   const [brand, setBrand] = useState('')
   const [quantity, setQuantity] = useState(1)
-  const [value, setValue] = useState<string | number>('0')
+  const [value, setValue] = useState<number>(0)
   const [inChart, setInChart] = useState(false)
   const formatedValue = useMemo(() => {
     return Number(value?.toString().replaceAll(',', '.'))
@@ -71,8 +71,6 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
       loadItem(itemId)
     }
   }, [])
-  // console.log('isEditing', isEditing)
-  // TODO => Add dialog component wrapping
 
   function decrement() {
     const newValue = quantity <= 1 ? 0 : quantity - 1
@@ -85,7 +83,7 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
         <div className='w-full flex justify-between h-1/4 items-end flex-col'>
           <button type="button" onClick={handleRemove}><TrashIcon className={`text-red-800 h-8 w-8 ${!isEditing && 'hidden'}`} /></button>
           <div className="flex flex-col items-end ">
-            <span className='text-md font-normal'>{transformMoney(formatedValue)} un.</span>
+            <span className='text-md font-normal'>{transformMoney(formatedValue)} un. </span>
             <span className='text-4xl font-semibold '>{transformMoney(formatedValue * quantity)}</span>
           </div>
         </div>
@@ -146,9 +144,8 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
               </div>
             </div>
             <div className="flex flex-col w-2/4">
-              <label className='text-sm mb-2 font-medium text-gray-900' htmlFor='valor-produto' >Valor unitário</label>
-
-              <CurrencyInput
+              <CurrencyInput currency={value} setCurrency={setValue} />
+              {/* <CurrencyInput
                 className='bg-gray-200 p-3  rounded-sm  h-10'
                 id="input-example"
                 name="input-name"
@@ -161,7 +158,7 @@ export function AddItem({ setIsAddItemActive, itemId, onClose, isEditing = false
                   locale: 'pt-BR',
                   currency: 'BRL'
                 }}
-              />
+              /> */}
 
             </div>
           </div>
